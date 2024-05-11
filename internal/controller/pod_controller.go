@@ -19,6 +19,9 @@ package controller
 import (
 	"context"
 
+	"fmt"
+	"reflect"
+
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -54,7 +57,22 @@ func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 	l.Info("Pod", "Name", pod.Name, "Namespace", pod.Namespace)
-
+	/* fooType := reflect.TypeOf(pod)
+	fmt.Print("\n", fooType, "\n")
+	for i := 0; i < fooType.NumMethod(); i++ {
+		method := fooType.Method(i)
+		fmt.Println(method.Name)
+	} */
+	//var b reflect.Value = reflect.ValueOf(&pod)
+	//b = b.Elem()
+	//fmt.Println("Slice after appending data:", b)
+	// fmt.Printf("%T\n", pod.Status)
+	//foo := reflect.ValueOf(pod).Elem()
+	//fmt.Println(foo)
+	fmt.Println(reflect.TypeOf(pod.Spec.Containers))
+	fmt.Println("container name ", pod.Spec.Containers[0].Name)
+	// fmt.Println(pod.)
+	pod.
 	return ctrl.Result{}, nil
 }
 
